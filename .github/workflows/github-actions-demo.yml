@@ -1,12 +1,15 @@
 name: Github Actions Demo
 
 on:
-  push: 
-    branches: [main]
-    paths-ignore: [ .github/** ]
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
   pull_request:
-    branches: [main]
-  schedule: 
+    branches:
+      - main
+  schedule:
     - cron: '15 6 * * 0'
   workflow_dispatch:
 
@@ -15,14 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-        - run: |
-            echo "The job was triggered by event:  ${{github.event_name}}"
-            echo "The name of branch is: ${{github.ref}}"
-
-        - uses: actions/checkout@v3.3.0
-
-        - name: List files
-          run: |
-            echo "the repo is ${{github.repository}}
-    
-    
+      - name: Output triggered event and branch name
+        run: |
+          echo "The job was triggered by event: ${{ github.event_name }}"
+          echo "The name of the branch is: ${{ github.ref }}"
+          
+      - uses: actions/checkout@v2
+      
+      - name: List files
+        run: |
+          echo "The repository is ${{ github.repository }}"
